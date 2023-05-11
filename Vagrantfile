@@ -26,6 +26,5 @@ Vagrant.configure("2") do |config|
       server_2.vm.network "private_network", ip: '192.168.56.16'
       server_2.vm.hostname = "server-2"
       server_2.vm.provision :file, source: "converter_service", destination: "converterService"
-    end
-    
+    end  
 end
