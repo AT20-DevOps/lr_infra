@@ -14,17 +14,19 @@ Vagrant.configure("2") do |config|
 
     config.vm.box_download_insecure=true
     config.vm.provision :docker
-    config.vm.provision :docker_compose
+    #config.vm.provision :docker_compose
 
   #VM ci-server
-    config.vm.define "ci-server" do |ci_server|
-      ci_server.vm.network "private_network", ip: '192.168.56.15'
-      ci_server.vm.hostname = "ci-server"
+    config.vm.define "server-1" do |ci|
+      ci.vm.network "private_network", ip: '192.168.56.15'
+      ci.vm.hostname = "ciserver"
+      ci.vm.provision :file, source:"../docker/docker-compose.ci.yml", destination:"docker-compose.yml"
+      ci.vm.provision :docker_compose, yml:"/home/vagrant/docker-compose.yml", run: "always"
     end
   #VM server-2
-    config.vm.define "server-2" do |server_2|
-      server_2.vm.network "private_network", ip: '192.168.56.16'
-      server_2.vm.hostname = "server-2"
-      server_2.vm.provision :file, source: "converter_service", destination: "converterService"
-    end  
+    #config.vm.define "server-2" do |server_2|
+      #server_2.vm.network "private_network", ip: '192.168.56.16'
+      #server_2.vm.hostname = "server-2"
+      #server_2.vm.provision :file, source: "converter_service", destination: "converterService"
+    #end  
 end
