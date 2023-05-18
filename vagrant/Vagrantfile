@@ -23,5 +23,5 @@ Vagrant.configure("2") do |config|
     ci.vm.provision :file, source:"../docker/docker-compose.ci.yml", destination:"docker-compose.yml"
     ci.vm.provision :docker_compose, yml:"/home/vagrant/docker-compose.yml", run: "always"
   end
- 
+
 end
